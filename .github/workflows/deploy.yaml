@@ -20,8 +20,10 @@ jobs:
         
       - name: add key to known_hosts
         run: ssh-keyscan -p ${{ secrets.SSH_PORT}} -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
-      - name: Run command over ssh
-        run: ssh -p 2210 root@185.241.10.173 "df -h"
+      - name: Pull image at
+        run: ssh -p ${{ secrets.SSH_PORT}} root@${{ secrets.SSH_HOST }} "docker pull ferhatk092/deneme"
+      - name: Delete old container
+        run: ssh -p ${{ secrets.SSH_PORT}} root@${{ secrets.SSH_HOST }} "docker run --rm ferhatk092/deneme"
         
         
     
